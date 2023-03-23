@@ -1,0 +1,15 @@
+name: PlayerProfiles
+version: '${project.version}'
+main: me.wappen.playerprofiles.PlayerProfiles
+api-version: 1.19
+depend: [ ProtocolLib ]
+
+commands:
+  profile:
+    permission: player-profiles.profile-cmd
+permissions:
+  player-profiles.*:
+    children:
+      change-profile: true
+  player-profiles.profile-cmd:
+    default: true
