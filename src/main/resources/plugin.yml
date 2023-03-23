@@ -2,7 +2,6 @@ name: PlayerProfiles
 version: '${project.version}'
 main: me.wappen.playerprofiles.PlayerProfiles
 api-version: 1.19
-depend: [ ProtocolLib ]
 
 commands:
   profile:

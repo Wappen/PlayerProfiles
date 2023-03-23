@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class ChangeProfileCommand extends BoiiCommand {
-    private PlayerProfiles plugin;
+    private final PlayerProfiles plugin;
 
     public ChangeProfileCommand(PlayerProfiles plugin) {
         super("profile");
@@ -29,7 +29,9 @@ public class ChangeProfileCommand extends BoiiCommand {
                 return false;
         }
 
-        player.kick(Component.text("rejoin"));
+        Config cfg = PlayerProfiles.config();
+        String msg = args.length == 0 ? cfg.rejoinMessageRestore : cfg.rejoinMessage.replace("%profile%", args[0]);
+        player.kick(Component.text(msg));
         return true;
     }
 }
