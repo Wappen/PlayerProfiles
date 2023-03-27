@@ -30,8 +30,10 @@ public final class PlayerProfiles extends BoiiPlugin<Config> {
 
         initBoiiConfig(new Config());
 
-        registerListener(new ChangeProfileListener(this));
+        registerCommand(new PlayerProfilesCommand(this));
         registerCommand(new ChangeProfileCommand(this));
+
+        registerListener(new ChangeProfileListener(this));
     }
 
     @Override
@@ -46,7 +48,7 @@ public final class PlayerProfiles extends BoiiPlugin<Config> {
             origProfile = player.getPlayerProfile();
         }
 
-        UUID altUUID = UUID.nameUUIDFromBytes(profileName.getBytes());
+        UUID altUUID = profileUUID(origProfile.getId(), profileName);
         String altName = config().nameFormat
                 .replace("%name%", origProfile.getName())
                 .replace("%profile%", profileName);
@@ -72,5 +74,10 @@ public final class PlayerProfiles extends BoiiPlugin<Config> {
 
     public PlayerProfile getAltProfile(UUID uuid) {
         return altProfiles.get(uuid);
+    }
+
+    private UUID profileUUID(UUID origUUID, String profileName) {
+        String str = "WappenProfile:" + profileName + "@" + origUUID.toString();
+        return UUID.nameUUIDFromBytes(str.getBytes());
     }
 }
